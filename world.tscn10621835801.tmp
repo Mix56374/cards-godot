@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbe25rm777nk7"]
+
+[ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://mouse.gd" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://dngcvmpnlpv7i" path="res://card.gd" id="3_tlwt5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fj7yv"]
+load_path = "res://.godot/imported/card_1_1.png-a236b1a9788c15c5822f13e24f2dfd00.ctex"
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fj7yv")
+card_id = null
+
+[node name="Cards" type="Node" parent="."]
+
+[node name="Card" type="Sprite2D" parent="Cards"]
+position = Vector2(168, 175)
+scale = Vector2(0.25, 0.25)
+texture = SubResource("CompressedTexture2D_fj7yv")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/Scale = Vector2(0.25, 0.25)
+metadata/Hover = false
+metadata/z_rotation = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false

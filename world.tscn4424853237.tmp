@@ -1,0 +1,859 @@
+[gd_scene load_steps=56 format=3 uid="uid://dbe25rm777nk7"]
+
+[ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://mouse.gd" id="1_fj7yv"]
+[ext_resource type="Texture2D" uid="uid://djwad1xw30wkt" path="res://cards/card_1_2.png" id="3_aqk2v"]
+[ext_resource type="Script" uid="uid://dngcvmpnlpv7i" path="res://card.gd" id="3_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://cbtsyv66tnbs0" path="res://cards/card_1_3.png" id="4_70uel"]
+[ext_resource type="Texture2D" uid="uid://f5pismlmhhmm" path="res://cards/card_1_4.png" id="5_hiqwa"]
+[ext_resource type="Texture2D" uid="uid://cdo4pgoarx3b3" path="res://cards/card_1_5.png" id="6_2u3nc"]
+[ext_resource type="Texture2D" uid="uid://143ni4y6jone" path="res://cards/card_1_6.png" id="7_udxuc"]
+[ext_resource type="Texture2D" uid="uid://00epcbv3f5mw" path="res://cards/card_1_7.png" id="8_ikiii"]
+[ext_resource type="Texture2D" uid="uid://dp0hlcp4ms4bn" path="res://cards/card_1_8.png" id="9_cbp6q"]
+[ext_resource type="Texture2D" uid="uid://dass67xxttw7t" path="res://cards/card_1_9.png" id="10_26xuy"]
+[ext_resource type="Texture2D" uid="uid://dqi3kymfu2jx" path="res://cards/card_1_10.png" id="11_bc84e"]
+[ext_resource type="Texture2D" uid="uid://qii4ulc84r5v" path="res://cards/card_1_11.png" id="12_wukud"]
+[ext_resource type="Texture2D" uid="uid://c0565v3v1ji86" path="res://cards/card_1_12.png" id="13_il2jm"]
+[ext_resource type="Texture2D" uid="uid://cawsebg5t4v2k" path="res://cards/card_1_13.png" id="14_wjb0r"]
+[ext_resource type="Texture2D" uid="uid://fn78slaryw2p" path="res://cards/card_2_1.png" id="15_olr1q"]
+[ext_resource type="Texture2D" uid="uid://ie3hmltgcr5e" path="res://cards/card_2_2.png" id="16_q42o5"]
+[ext_resource type="Texture2D" uid="uid://dppaetl7ornae" path="res://cards/card_2_3.png" id="17_b7btk"]
+[ext_resource type="Texture2D" uid="uid://cmemlj3845dw1" path="res://cards/card_2_4.png" id="18_kkgr2"]
+[ext_resource type="Texture2D" uid="uid://r4jyw6ahknpo" path="res://cards/card_2_5.png" id="19_iett8"]
+[ext_resource type="Texture2D" uid="uid://dqyqcsyyjwy6" path="res://cards/card_2_6.png" id="20_r5m4j"]
+[ext_resource type="Texture2D" uid="uid://buwd2776q3fda" path="res://cards/card_2_7.png" id="21_e77ka"]
+[ext_resource type="Texture2D" uid="uid://cm75034ydlomn" path="res://cards/card_2_8.png" id="22_c0wax"]
+[ext_resource type="Texture2D" uid="uid://bdl64etu1xuje" path="res://cards/card_2_9.png" id="23_sedwk"]
+[ext_resource type="Texture2D" uid="uid://b5qmefmii0hqt" path="res://cards/card_2_10.png" id="24_37ykd"]
+[ext_resource type="Texture2D" uid="uid://baak2ex3knj0w" path="res://cards/card_2_11.png" id="25_1hvhf"]
+[ext_resource type="Texture2D" uid="uid://ccx6flumejmcn" path="res://cards/card_2_12.png" id="26_75cpn"]
+[ext_resource type="Texture2D" uid="uid://cn3vhawxnoay0" path="res://cards/card_2_13.png" id="27_ct3wn"]
+[ext_resource type="Texture2D" uid="uid://cbsltxm13gtvg" path="res://cards/card_3_1.png" id="28_ynm8w"]
+[ext_resource type="Texture2D" uid="uid://o7h6nnyf1j2o" path="res://cards/card_3_2.png" id="29_rakx2"]
+[ext_resource type="Texture2D" uid="uid://pyrhnuxae5gl" path="res://cards/card_3_3.png" id="30_3fh52"]
+[ext_resource type="Texture2D" uid="uid://bp1srfvxd82w5" path="res://cards/card_3_4.png" id="31_8f1f8"]
+[ext_resource type="Texture2D" uid="uid://duh8y8euybcsy" path="res://cards/card_3_5.png" id="32_lxwtw"]
+[ext_resource type="Texture2D" uid="uid://doceomwrvjai7" path="res://cards/card_3_6.png" id="33_ir1d4"]
+[ext_resource type="Texture2D" uid="uid://cqdqoqjgxhkep" path="res://cards/card_3_7.png" id="34_tj74d"]
+[ext_resource type="Texture2D" uid="uid://cmbwtuajt41vh" path="res://cards/card_3_8.png" id="35_yy5nj"]
+[ext_resource type="Texture2D" uid="uid://b3sd7ooci7jxs" path="res://cards/card_3_9.png" id="36_p5g01"]
+[ext_resource type="Texture2D" uid="uid://d0ut53m6wvy81" path="res://cards/card_3_10.png" id="37_fl6gn"]
+[ext_resource type="Texture2D" uid="uid://cxpmnsf17o7x2" path="res://cards/card_3_11.png" id="38_gjwlp"]
+[ext_resource type="Texture2D" uid="uid://dxtd474q00cr" path="res://cards/card_3_12.png" id="39_yfwfa"]
+[ext_resource type="Texture2D" uid="uid://hjdj6soigakx" path="res://cards/card_3_13.png" id="40_qm10a"]
+[ext_resource type="Texture2D" uid="uid://dyflgi78si1u" path="res://cards/card_4_1.png" id="41_7fs00"]
+[ext_resource type="Texture2D" uid="uid://dv2jgrisjd04x" path="res://cards/card_4_2.png" id="42_e0aah"]
+[ext_resource type="Texture2D" uid="uid://7ogy83g2ek58" path="res://cards/card_4_3.png" id="43_415my"]
+[ext_resource type="Texture2D" uid="uid://cpbprxt52dgg1" path="res://cards/card_4_4.png" id="44_eewsi"]
+[ext_resource type="Texture2D" uid="uid://b4pmovqpuvn66" path="res://cards/card_4_5.png" id="45_71tr8"]
+[ext_resource type="Texture2D" uid="uid://bnx8qxx03hdq0" path="res://cards/card_4_6.png" id="46_ngeen"]
+[ext_resource type="Texture2D" uid="uid://ck66gkhqe0edc" path="res://cards/card_4_7.png" id="47_t55hq"]
+[ext_resource type="Texture2D" uid="uid://ib4ya8vdc8ws" path="res://cards/card_4_8.png" id="48_jtjyu"]
+[ext_resource type="Texture2D" uid="uid://c51d65o8docrq" path="res://cards/card_4_9.png" id="49_vv6ac"]
+[ext_resource type="Texture2D" uid="uid://dsehs7pnp6b56" path="res://cards/card_4_10.png" id="50_v27xk"]
+[ext_resource type="Texture2D" uid="uid://r43grk0o4om" path="res://cards/card_4_11.png" id="51_vf1x1"]
+[ext_resource type="Texture2D" uid="uid://bhre1rufq2ii5" path="res://cards/card_4_12.png" id="52_vsnf8"]
+[ext_resource type="Texture2D" uid="uid://bru4hvh77avw1" path="res://cards/card_4_13.png" id="53_afx2c"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fj7yv"]
+load_path = "res://.godot/imported/card_1_1.png-a236b1a9788c15c5822f13e24f2dfd00.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
+size = Vector2(110, 155)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fj7yv")
+
+[node name="Cards" type="Node2D" parent="."]
+
+[node name="Card1" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = SubResource("CompressedTexture2D_fj7yv")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0, 0)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card2" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_aqk2v")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card3" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_70uel")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card4" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_hiqwa")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card5" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_2u3nc")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card6" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_udxuc")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card7" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_ikiii")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card8" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("9_cbp6q")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card9" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("10_26xuy")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card10" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_bc84e")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card11" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("12_wukud")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card12" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("13_il2jm")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card13" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("14_wjb0r")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card14" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("15_olr1q")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card15" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("16_q42o5")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card16" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("17_b7btk")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card17" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("18_kkgr2")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card18" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("19_iett8")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card19" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("20_r5m4j")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card20" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("21_e77ka")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card21" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("22_c0wax")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card22" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("23_sedwk")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card23" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("24_37ykd")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card24" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("25_1hvhf")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card25" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("26_75cpn")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card26" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("27_ct3wn")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card27" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("28_ynm8w")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card28" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("29_rakx2")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card29" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("30_3fh52")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card30" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("31_8f1f8")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card31" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("32_lxwtw")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card32" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("33_ir1d4")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card33" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("34_tj74d")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card34" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("35_yy5nj")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card35" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("36_p5g01")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card36" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("37_fl6gn")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card37" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("38_gjwlp")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card38" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("39_yfwfa")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card39" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("40_qm10a")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card40" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("41_7fs00")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card41" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("42_e0aah")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card42" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("43_415my")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card43" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("44_eewsi")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card44" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("45_71tr8")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card45" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("46_ngeen")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card46" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("47_t55hq")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card47" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("48_jtjyu")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card48" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("49_vv6ac")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card49" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("50_v27xk")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card50" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("51_vf1x1")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card51" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("52_vsnf8")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Card52" type="Sprite2D" parent="Cards"]
+y_sort_enabled = true
+position = Vector2(233, 237)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("53_afx2c")
+script = ExtResource("3_tlwt5")
+metadata/card_id = 0
+metadata/position = Vector2(0, 0)
+metadata/drag = false
+metadata/hover = false
+metadata/scale = Vector2(0.25, 0.25)
+metadata/flip = false
+metadata/rotation = 0.0
+metadata/target = NodePath("")
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="Node" type="Area2D" parent="Nodes"]
+position = Vector2(396, 176)
+
+[node name="Collision" type="CollisionShape2D" parent="Nodes/Node"]
+shape = SubResource("RectangleShape2D_tlwt5")

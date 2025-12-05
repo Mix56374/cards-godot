@@ -7,14 +7,13 @@ var zrot = 0.0
 var drag = 0.0
 var rot = 0.0
 
-func _ready():
+func _enter_tree():
 	set_meta("scale", scale.y)
 	set_meta("position", position)
 	set_meta("rotation", rotation)
-	if not dtexture:
-		var card_id = get_meta("card_id")
-		dtexture = load("res://cards/card_"+str(1+(card_id/14))+"_"+str(1+((card_id-1)%13))+".png")
-		texture = dtexture
+	var card_id = get_meta("card_id")
+	dtexture = load("res://cards/card_"+str(1+(card_id/14))+"_"+str(1+((card_id-1)%13))+".png")
+	set_deferred("texture", dtexture)
 
 func _process(delta):
 	var target = get_meta("target")

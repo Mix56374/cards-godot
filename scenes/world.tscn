@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbe25rm777nk7"]
+
+[ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://scripts/mouse.gd" id="1_rwgxs"]
+[ext_resource type="Script" uid="uid://cbc5enkvco1ny" path="res://scripts/cards.gd" id="2_4wyf3"]
+[ext_resource type="Shader" uid="uid://b1gehafna1f1y" path="res://shaders/pixelate.gdshader" id="3_4wyf3"]
+[ext_resource type="Shader" uid="uid://3sckgxuvlghu" path="res://shaders/dither.gdshader" id="4_k0juu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k0juu"]
+shader = ExtResource("3_4wyf3")
+shader_parameter/pixelation = 0.00400000019
+shader_parameter/opacity = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71j4m"]
+shader = ExtResource("4_k0juu")
+shader_parameter/step_posterize = 10
+shader_parameter/step_pixelated = 1000
+shader_parameter/color_A = Color(0.9, 0.9, 0.9, 1)
+shader_parameter/color_B = Color(0.101960786, 0.101960786, 0.101960786, 1)
+shader_parameter/dithering_bayer = false
+shader_parameter/animated_dithering = true
+shader_parameter/smooth_animate = true
+shader_parameter/interval = 0.10000000149012
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
+size = Vector2(110, 155)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_rwgxs")
+
+[node name="Cards" type="Node2D" parent="."]
+script = ExtResource("2_4wyf3")
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="Canvas" type="CanvasLayer" parent="Camera"]
+
+[node name="Pixelate" type="ColorRect" parent="Camera/Canvas"]
+material = SubResource("ShaderMaterial_k0juu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Dither" type="ColorRect" parent="Camera/Canvas"]
+visible = false
+material = SubResource("ShaderMaterial_71j4m")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="Node" type="Area2D" parent="Nodes"]
+position = Vector2(396, 176)
+
+[node name="Collision" type="CollisionShape2D" parent="Nodes/Node"]
+shape = SubResource("RectangleShape2D_tlwt5")

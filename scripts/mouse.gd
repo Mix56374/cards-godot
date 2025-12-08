@@ -36,7 +36,7 @@ func _process(_delta):
 	else:
 		hover_card = null
 		for card in cards.get_children():
-			if card.get_rect().has_point(card.to_local(mouse)):
+			if card.get_meta("interactable") and card.get_rect().has_point(card.to_local(mouse)):
 				hover_card = card
 		
 		for card in cards.get_children():

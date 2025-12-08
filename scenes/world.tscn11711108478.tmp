@@ -24,7 +24,7 @@ shader_parameter/interval = 0.10000000149012
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
 size = Vector2(110, 155)
 
-[node name="World" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_rwgxs")
 
 [node name="Cards" type="Node2D" parent="."]

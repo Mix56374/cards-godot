@@ -18,6 +18,9 @@ func _unhandled_input(event):
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_pressed() and hover_card:
 				hover_card.set_meta("flip", not hover_card.get_meta("flip"))
+		elif event.button_index == MOUSE_BUTTON_MIDDLE:
+			if event.is_pressed() and hover_card:
+				hover_card.set_meta("float", not hover_card.get_meta("float"))
 
 func _process(_delta):
 	var viewport = get_viewport()

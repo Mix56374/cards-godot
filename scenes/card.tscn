@@ -17,3 +17,4 @@ metadata/rotation = 0.0
 metadata/target = NodePath("")
 metadata/scale = 0.0
 metadata/interactable = false
+metadata/float = true

@@ -9,6 +9,7 @@ var size = scale.y
 var zrot = 0.0
 var drag = 0.0
 var rot = 0.0
+var floatf = 0.0
 var rng_offset = rng.randf_range(5.0, 8.0)
 var rng_sign = (2 * randi_range(0, 1)) - 1
 
@@ -17,6 +18,7 @@ func _enter_tree():
 	var card_id = get_meta("card_id")
 	ftexture = load("res://cards/card_"+str(1+(card_id/14))+"_"+str(1+((card_id-1)%13))+".png")
 	set_deferred("texture", ftexture)
+	set_deferred("float", floatf)
 	
 	var target = get_meta("target")
 	if target:
@@ -49,15 +51,18 @@ func _process(delta):
 	
 	lpos = Vector2(cos(lpos.angle()), sin(lpos.angle())) * min(lpos.length(), 200.0)
 	
-	if get_meta("card_id") == 52:
-		print(sin((PI * ltime)/rng_offset) * 0.03)
+	floatf = lerp(floatf, float(get_meta("float")), delta * 10.0)
+	if floatf != 0.0:
+		lsize += floatf * ((cos(PI * (ltime/(rng_offset * 1.0) + 0.5)) + 1.0) * 0.005)
+		lrot += floatf * (sin((PI * ltime)/rng_offset) * rng_sign * 0.04)
+	
 	
 	rot = lerp(rot, lrot, delta * 5.0)
 	drag = lerp(drag, ldrag, delta * 10.0)
-	rotation = rot + (sin((PI * ltime)/rng_offset) * rng_sign * 0.04) + clamp(lpos.x/200.0, -0.85, 0.85)
+	rotation = rot + clamp(lpos.x/200.0, -0.85, 0.85)
 	position = lerp(position, position + lpos, delta * (10.0 + (ease(drag, 0.1) * 15.0)))
 	zrot = lerp(zrot, lzrot, delta * 10.0)
-	size = lerp(size, lsize + ((cos(PI * (ltime/(rng_offset * 1.0) + 0.5)) + 1.0) * 0.005), delta * 15.0)
+	size = lerp(size, lsize, delta * 15.0)
 	scale = Vector2(size, size)
 	scale.x = lerp(size, -size, zrot/2)
 	# Fix the floating animation on lines 57 and 60 so it is integrated into the overall code better, and can smoothly be toggled on or off, and no I will NOT be fixing the magic numbers

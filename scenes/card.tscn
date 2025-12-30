@@ -1,20 +1,21 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccwpv05fjn3mr"]
 
-[ext_resource type="Texture2D" uid="uid://c0iswnxx64ylo" path="res://cards/card_empty.png" id="1_rjlel"]
+[ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="1_6u4wf"]
 [ext_resource type="Script" uid="uid://dngcvmpnlpv7i" path="res://scripts/card.gd" id="2_q5obu"]
 
-[node name="Card" type="Sprite2D"]
+[node name="Card" type="Sprite2D" groups=["Cards"]]
+top_level = true
 y_sort_enabled = true
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_rjlel")
+scale = Vector2(-0.25, 0.25)
+texture = ExtResource("1_6u4wf")
 script = ExtResource("2_q5obu")
 metadata/card_id = 0
 metadata/position = Vector2(0, 0)
 metadata/drag = false
 metadata/hover = false
-metadata/flip = false
+metadata/flip = true
 metadata/rotation = 0.0
-metadata/target = NodePath("")
 metadata/scale = 0.0
 metadata/interactable = false
-metadata/float = true
+metadata/float = false
+metadata/target = Vector2(0, 0)

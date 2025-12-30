@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbe25rm777nk7"]
+[gd_scene load_steps=9 format=3 uid="uid://dbe25rm777nk7"]
 
 [ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://scripts/mouse.gd" id="1_rwgxs"]
+[ext_resource type="Script" uid="uid://cbc5enkvco1ny" path="res://scripts/cards.gd" id="2_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="2_71j4m"]
 [ext_resource type="Shader" uid="uid://b1gehafna1f1y" path="res://shaders/pixelate.gdshader" id="3_4wyf3"]
 [ext_resource type="Shader" uid="uid://3sckgxuvlghu" path="res://shaders/dither.gdshader" id="4_k0juu"]
@@ -21,20 +22,18 @@ shader_parameter/animated_dithering = true
 shader_parameter/smooth_animate = true
 shader_parameter/interval = 0.10000000149012
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
+size = Vector2(110, 155)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_rwgxs")
 
 [node name="Cards" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(697.5, 360)
+position = Vector2(1037, 568)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_71j4m")
-
-[node name="Cards2" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(582.5, 360)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_71j4m")
+script = ExtResource("2_4wyf3")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -65,10 +64,25 @@ mouse_filter = 1
 
 [node name="Nodes" type="Node2D" parent="."]
 
-[node name="Players" type="Node2D" parent="."]
+[node name="Node" type="Area2D" parent="Nodes"]
+visible = false
+position = Vector2(396, 176)
 
-[node name="Player" type="Node2D" parent="Players"]
-metadata/cards = []
+[node name="Collision" type="CollisionShape2D" parent="Nodes/Node"]
+shape = SubResource("RectangleShape2D_tlwt5")
+
+[node name="Node2" type="Area2D" parent="Nodes"]
+visible = false
+position = Vector2(711, 308)
+
+[node name="Collision" type="CollisionShape2D" parent="Nodes/Node2"]
+shape = SubResource("RectangleShape2D_tlwt5")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Player" type="Node" parent="Players"]
 
 [node name="LookAt" type="Node2D" parent="Players/Player"]
 position = Vector2(640, 900)
+
+[connection signal="new_card" from="Cards" to="." method="_new_card"]

@@ -26,13 +26,7 @@ script = ExtResource("1_rwgxs")
 
 [node name="Cards" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(697.5, 360)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_71j4m")
-
-[node name="Cards2" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(582.5, 360)
+position = Vector2(1037, 568)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_71j4m")
 

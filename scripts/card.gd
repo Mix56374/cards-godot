@@ -12,19 +12,20 @@ var rot = 0.0
 var floatf = 0.0
 var rng_offset = rng.randf_range(5.0, 8.0)
 var rng_sign = (2 * randi_range(0, 1)) - 1
+var ltarget = Vector2.ZERO
 
 func _enter_tree():
 	set_meta("scale", scale.y)
 	var card_id = get_meta("card_id")
-	ftexture = load("res://cards/card_"+str(1+(card_id/14))+"_"+str(1+((card_id-1)%13))+".png")
+	ftexture = load("res://cards/card_"+str(card_id)+".png")
 	set_deferred("texture", ftexture)
 	set_deferred("float", floatf)
 	
-	var target = get_meta("target")
-	if target:
-		position = target
-	else:
-		position = get_meta("position")
+	#var target = get_meta("target")
+	#if target:
+		#position = target
+	#else:
+		#position = get_meta("position")
 	
 	zrot = float(get_meta("flip")) * 2.0
 	if zrot > 1.0:
@@ -43,8 +44,12 @@ func _process(delta):
 	var ltime = time.get_ticks_msec()/1000.0
 	
 	var lpos
-	if target:
-		lpos = lerp(target.position, get_meta("position"), ease(drag, 0.3)) - position
+	if target != Vector2.ZERO:
+		if ltarget != target:
+			ltarget = target
+			set_meta("position", position)
+			drag = 1.0
+		lpos = lerp(target, get_meta("position"), ease(drag, 0.3)) - position
 	else:
 		lpos = get_meta("position") - position
 	var lrot = get_meta("rotation")

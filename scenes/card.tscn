@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccwpv05fjn3mr"]
+[gd_scene load_steps=5 format=3 uid="uid://ccwpv05fjn3mr"]
 
 [ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="1_6u4wf"]
+[ext_resource type="Shader" uid="uid://djt3tj54o1qxv" path="res://shaders/outline.gdshader" id="1_ktuci"]
 [ext_resource type="Script" uid="uid://dngcvmpnlpv7i" path="res://scripts/card.gd" id="2_q5obu"]
 
-[node name="Card" type="Sprite2D" groups=["Cards"]]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktuci"]
+shader = ExtResource("1_ktuci")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[node name="Card" type="Sprite2D" groups=["Cards", "Idle"]]
 top_level = true
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_ktuci")
 scale = Vector2(-0.25, 0.25)
 texture = ExtResource("1_6u4wf")
 script = ExtResource("2_q5obu")
@@ -19,3 +29,5 @@ metadata/scale = 0.0
 metadata/interactable = false
 metadata/float = false
 metadata/target = Vector2(0, 0)
+metadata/selected = false
+metadata/losing = false

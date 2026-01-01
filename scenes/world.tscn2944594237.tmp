@@ -25,14 +25,12 @@ shader_parameter/interval = 0.10000000149012
 script = ExtResource("1_rwgxs")
 
 [node name="Deck" type="Sprite2D" parent="."]
-top_level = true
 z_index = -1
 position = Vector2(697.5, 425)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_71j4m")
 
 [node name="Pile" type="Node2D" parent="."]
-top_level = true
 z_index = -1
 position = Vector2(582.5, 425)
 scale = Vector2(0.25, 0.25)
@@ -65,11 +63,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Players" type="Node2D" parent="."]
-metadata/losing_cards = []
 
 [node name="Player" type="Node2D" parent="Players"]
 metadata/cards = []
 metadata/selected_cards = []
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3l5bvxy6ro2e"]
+
+[ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="1_20rq3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjb58"]
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Player" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjb58")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme = ExtResource("1_20rq3")
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1

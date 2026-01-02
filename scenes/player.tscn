@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dbsfy7v0ipw6a"]
+
+[node name="Player" type="Node2D"]
+metadata/cards = []
+metadata/selected_cards = []
+metadata/rotation = 0.0
+metadata/scale = 0.25

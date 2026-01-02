@@ -1,0 +1,194 @@
+[gd_scene load_steps=7 format=3 uid="uid://duktsnqoew0j2"]
+
+[ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_mhnvy"]
+[ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="1_yqeox"]
+[ext_resource type="Texture2D" uid="uid://cc0c6igotgn1a" path="res://images/copy.svg" id="2_con2f"]
+[ext_resource type="PackedScene" uid="uid://c3l5bvxy6ro2e" path="res://scenes/player_menu.tscn" id="2_vjb58"]
+
+[sub_resource type="Theme" id="Theme_vjb58"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Menu" type="CenterContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 44.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9937827, 1)
+use_top_left = true
+script = ExtResource("1_mhnvy")
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Host" type="Button" parent="Main"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "   Host   "
+
+[node name="Join" type="Button" parent="Main"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "Join"
+
+[node name="Joining" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Code" type="LineEdit" parent="Joining"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+placeholder_text = " Enter Lobby ID "
+alignment = 1
+expand_to_text_length = true
+emoji_menu_enabled = false
+
+[node name="Join" type="CenterContainer" parent="Joining"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Joining/Join"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = " Join Game "
+
+[node name="Hosting" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_vjb58")
+theme_override_constants/separation = 16
+
+[node name="Players" type="HBoxContainer" parent="Hosting"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "Players:"
+
+[node name="Subtract" type="Button" parent="Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "  -  "
+
+[node name="Amount" type="Label" parent="Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "4"
+
+[node name="Add" type="Button" parent="Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "  +  "
+
+[node name="Cards" type="HBoxContainer" parent="Hosting"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "Cards:"
+
+[node name="Subtract" type="Button" parent="Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "  -  "
+
+[node name="Amount" type="Label" parent="Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "5"
+
+[node name="Add" type="Button" parent="Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "  +  "
+
+[node name="Create" type="CenterContainer" parent="Hosting"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Hosting/Create"]
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = " Create Lobby "
+
+[node name="Lobby" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Container" type="HBoxContainer" parent="Lobby"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Code" type="Label" parent="Lobby/Container"]
+editor_description = "format as following when online id is present
+Lobby ID: <Online ID>"
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_yqeox")
+text = "Retrieving Lobby ID..."
+
+[node name="Copy" type="Button" parent="Lobby/Container"]
+visible = false
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+icon = ExtResource("2_con2f")
+icon_alignment = 1
+
+[node name="Players" type="PanelContainer" parent="Lobby"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_yqeox")
+
+[node name="Container" type="VBoxContainer" parent="Lobby/Players"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Player" parent="Lobby/Players/Container" instance=ExtResource("2_vjb58")]
+layout_mode = 2
+
+[node name="Buttons" type="CenterContainer" parent="Lobby"]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="Lobby/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="Leave" type="Button" parent="Lobby/Buttons/Container"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "Leave"
+
+[node name="Start" type="Button" parent="Lobby/Buttons/Container"]
+visible = false
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme = ExtResource("1_yqeox")
+text = "Start"
+
+[connection signal="pressed" from="Main/Host" to="." method="_main_host_pressed"]
+[connection signal="pressed" from="Main/Join" to="." method="_main_join_pressed"]
+[connection signal="pressed" from="Joining/Join/Button" to="." method="_joining_join_pressed"]

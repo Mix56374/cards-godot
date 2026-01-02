@@ -15,6 +15,7 @@ var rng_sign = (2 * randi_range(0, 1)) - 1
 var ltarget = Vector2.ZERO
 var select = 0.0
 var losing = 0.0
+var hover = 0.0
 
 func _enter_tree():
 	set_meta("scale", scale.y)
@@ -72,13 +73,15 @@ func _process(delta):
 	rotation = rot + clamp(lpos.x/200.0, -0.85, 0.85)
 	position = lerp(position, position + lpos, delta * (10.0 + (ease(drag, 0.1) * 15.0)))
 	zrot = lerp(zrot, lzrot, delta * 10.0)
-	size = lerp(size, lsize, delta * 15.0)
+	hover = lerp(hover, float(get_meta("hover")), delta * (2.5 if (hover < 0.05) else 15.0))
+	size = lerp(size, lsize, delta * (2.5 if (hover < 0.05) else 15.0))
 	scale = Vector2(size, size)
 	scale.x = lerp(size, -size, zrot/2)
 	
 	#if get_meta("float"):
 	offset.y = select * -150.0
 	if not get_meta("losing"):
+		material.set_shader_parameter("color", Color.WHITE)
 		material.set_shader_parameter("width", select * 10.0)
 	else:
 		material.set_shader_parameter("color", Color.CRIMSON)

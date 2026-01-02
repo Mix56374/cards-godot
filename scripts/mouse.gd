@@ -2,8 +2,11 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
+# 2-6 players visual soft limit
+var players_amt = 4
+
 @onready var players = $Players
-@onready var local_player = $Players/Player
+var local_player
 
 @onready var timer = $Timer
 @onready var deck = $Deck
@@ -12,16 +15,24 @@ var rng = RandomNumberGenerator.new()
 var hover_card = null
 var drag = false
 
+var base_player = preload("res://scenes/player.tscn")
 var base_card = preload("res://scenes/card.tscn")
 var outline_shader = preload("res://shaders/outline.gdshader")
 @onready var viewport = get_viewport()
 @onready var screen = viewport.get_visible_rect()
 
+func sort_cards(a, b):
+	return a.get_meta("card_id") < b.get_meta("card_id")
+
 func hand_repos(player):
 	var player_cards = player.get_meta("cards")
+	var rot = player.get_meta("rotation")
+	var scale = player.get_meta("scale")
 	for i in player_cards.size():
 		var icard = player_cards[i]
-		icard.set_meta("target", Vector2((screen.size.x - ((player_cards.size() - 1.0) * 115.0))/2.0 + (i * 115.0), screen.size.y - 150.0))
+		var x = (i * scale * 480.0) - ((player_cards.size() - 1) * scale * 480.0)/2.0
+		icard.set_meta("target", player.position + Vector2(-(-x * cos(rot)) + (-150.0 * sin(rot)), (-x * sin(rot)) + (-150.0 * cos(rot))))
+		icard.set_meta("rotation", -rot)
 
 func new_card(card_id, player):
 	var card = base_card.instantiate()
@@ -34,15 +45,14 @@ func new_card(card_id, player):
 	deck.add_child(card)
 	var player_cards = player.get_meta("cards")
 	player_cards.append(card)
+	player_cards.sort_custom(sort_cards)
 	
 	if player == local_player:
 		card.set_meta("flip", false)
+	else:
+		card.set_meta("scale", 0.15)
 	card.set_meta("float", true)
 	
-	player_cards.sort_custom(
-		func sort_cards(a, b):
-			return a.get_meta("card_id") < b.get_meta("card_id")
-	)
 	hand_repos(player)
 
 func play_card(card, player):
@@ -95,10 +105,7 @@ func _unhandled_input(event):
 		
 		if event.is_action_pressed("play") and selected_cards.size() > 0:
 			local_player.set_meta("selected_cards", [])
-			selected_cards.sort_custom(
-				func sort_cards(a, b):
-					return a.get_meta("card_id") < b.get_meta("card_id")
-			)
+			selected_cards.sort_custom(sort_cards)
 			
 			for card in player_cards:
 				card.set_meta("interactable", false)
@@ -122,14 +129,35 @@ func card_exists(card_id):
 	return false
 
 func _ready():
-	timer.start()
-	for i in range(8):
-		var card_id = randi_range(1, 52)
-		while card_exists(card_id):
-			card_id = randi_range(1, 52)
-		new_card(card_id, local_player)
+	for i in range(players_amt):
+		var player = base_player.instantiate()
+		players.add_child(player)
+		player.set_meta("cards", player.get_meta("cards").duplicate())
+		player.set_meta("selected_cards", player.get_meta("selected_cards").duplicate())
+		var rot = i/(players_amt/TAU)
 		
-		await timer.timeout
+		if players_amt < 7 and (players_amt != 2 and players_amt != 5 and players_amt != 4):
+			if PI/2 < rot and rot < PI:
+				rot = (PI/2) * sin(rot - (PI/2)) + (PI/2)
+			elif PI < rot and rot < (3 * PI)/2:
+				rot = (PI/2) * sin(rot + (PI/2)) + (3 * PI)/2
+		
+		player.set_meta("rotation", -rot)
+		player.set_meta("scale", 0.25 if (i == 0) else 0.15)
+		rot += PI/2
+		player.position = ((screen.size/2) * Vector2(cos(rot), sin(rot))) + Vector2(screen.size.x/2, screen.size.y/2)
+	
+	local_player = players.get_child(0)
+	
+	timer.start()
+	for i in range(4):
+		for player in players.get_children():
+			var card_id = randi_range(1, 52)
+			while card_exists(card_id):
+				card_id = randi_range(1, 52)
+			new_card(card_id, player)
+			
+			await timer.timeout
 	timer.stop()
 	
 	for card in local_player.get_meta("cards"):
@@ -137,7 +165,6 @@ func _ready():
 
 func _process(_delta):
 	var mouse = viewport.get_mouse_position()
-	
 	mouse = mouse.clamp(screen.position, screen.end) + camera.position
 	
 	#if drag:

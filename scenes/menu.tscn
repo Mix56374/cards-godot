@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://duktsnqoew0j2"]
+[gd_scene load_steps=7 format=3 uid="uid://57d7gmkmxi36"]
 
 [ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_mhnvy"]
 [ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="1_yqeox"]
@@ -20,18 +20,19 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="Menu" type="CenterContainer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 44.0
-offset_bottom = 66.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.9937827, 1)
-use_top_left = true
 script = ExtResource("1_mhnvy")
+
+[node name="Build" type="Label" parent="."]
+custom_minimum_size = Vector2(1275, 845)
+layout_mode = 2
+text = "Build 0.1.0"
+vertical_alignment = 2
 
 [node name="Main" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -192,3 +193,6 @@ text = "Start"
 [connection signal="pressed" from="Main/Host" to="." method="_main_host_pressed"]
 [connection signal="pressed" from="Main/Join" to="." method="_main_join_pressed"]
 [connection signal="pressed" from="Joining/Join/Button" to="." method="_joining_join_pressed"]
+[connection signal="pressed" from="Hosting/Create/Button" to="." method="_hosting_host_pressed"]
+[connection signal="pressed" from="Lobby/Buttons/Container/Leave" to="." method="_lobby_leave_pressed"]
+[connection signal="pressed" from="Lobby/Buttons/Container/Start" to="." method="_lobby_start_pressed"]

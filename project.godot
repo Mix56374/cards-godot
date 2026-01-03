@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="Cards"
-run/main_scene="uid://duktsnqoew0j2"
+run/main_scene="uid://cnhgv62itjbsf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [debug]
 
+gdscript/warnings/unused_signal=0
 gdscript/warnings/integer_division=0
 
 [display]

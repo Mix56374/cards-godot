@@ -1,0 +1,278 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnhgv62itjbsf"]
+
+[ext_resource type="Script" uid="uid://bcpxuaif15wdo" path="res://scripts/toast.gd" id="1_iywne"]
+[ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_lbhrr"]
+[ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="2_iywne"]
+[ext_resource type="Texture2D" uid="uid://cc0c6igotgn1a" path="res://images/copy.svg" id="3_p57ef"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lbhrr"]
+properties/0/path = NodePath(".:metadata/players")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Menu/Lobby/Container/Code:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Menu/Lobby/Container/Copy:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+
+[sub_resource type="Theme" id="Theme_vjb58"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Game" type="Node"]
+metadata/players = []
+metadata/players_amount = 4
+metadata/cards_amount = 4
+metadata/lobby_id = ""
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lbhrr")
+
+[node name="Toast" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lnu2h")
+script = ExtResource("1_iywne")
+
+[node name="Label" type="Label" parent="Toast"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="Toast"]
+wait_time = 5.0
+one_shot = true
+ignore_time_scale = true
+
+[node name="Build" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -28.0
+offset_right = 86.0
+offset_bottom = -5.0
+grow_vertical = 0
+text = "Build 0.1.0"
+vertical_alignment = 2
+
+[node name="Menu" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9937827, 1)
+script = ExtResource("1_lbhrr")
+
+[node name="Main" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Host" type="Button" parent="Menu/Main"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "   Host   "
+
+[node name="Join" type="Button" parent="Menu/Main"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Join"
+
+[node name="Joining" type="VBoxContainer" parent="Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Code" type="LineEdit" parent="Menu/Joining"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+placeholder_text = " Enter Lobby ID "
+alignment = 1
+expand_to_text_length = true
+emoji_menu_enabled = false
+
+[node name="Join" type="CenterContainer" parent="Menu/Joining"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Menu/Joining/Join"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = " Join Game "
+
+[node name="Timer" type="Timer" parent="Menu/Joining"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Hosting" type="VBoxContainer" parent="Menu"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_vjb58")
+theme_override_constants/separation = 16
+
+[node name="Players" type="HBoxContainer" parent="Menu/Hosting"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Players:"
+
+[node name="Subtract" type="Button" parent="Menu/Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  -  "
+
+[node name="Amount" type="Label" parent="Menu/Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "4"
+
+[node name="Add" type="Button" parent="Menu/Hosting/Players"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  +  "
+
+[node name="Cards" type="HBoxContainer" parent="Menu/Hosting"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Cards:"
+
+[node name="Subtract" type="Button" parent="Menu/Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  -  "
+
+[node name="Amount" type="Label" parent="Menu/Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "4"
+
+[node name="Add" type="Button" parent="Menu/Hosting/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  +  "
+
+[node name="Create" type="CenterContainer" parent="Menu/Hosting"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Menu/Hosting/Create"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = " Create Lobby "
+
+[node name="Lobby" type="VBoxContainer" parent="Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Container" type="HBoxContainer" parent="Menu/Lobby"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Code" type="Label" parent="Menu/Lobby/Container"]
+editor_description = "format as following when online id is present
+Lobby ID: <Online ID>"
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_iywne")
+text = "Retrieving Lobby ID..."
+
+[node name="Copy" type="Button" parent="Menu/Lobby/Container"]
+visible = false
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+icon = ExtResource("3_p57ef")
+icon_alignment = 1
+metadata/lobby_id = ""
+
+[node name="Players" type="PanelContainer" parent="Menu/Lobby"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_yqeox")
+
+[node name="Container" type="VBoxContainer" parent="Menu/Lobby/Players"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Menu/Lobby/Players"]
+_spawnable_scenes = PackedStringArray("uid://c3l5bvxy6ro2e")
+spawn_path = NodePath("../Container")
+
+[node name="Buttons" type="CenterContainer" parent="Menu/Lobby"]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="Menu/Lobby/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="Leave" type="Button" parent="Menu/Lobby/Buttons/Container"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Leave"
+
+[node name="Start" type="Button" parent="Menu/Lobby/Buttons/Container"]
+visible = false
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Start"
+
+[connection signal="pressed" from="Menu/Main/Host" to="Menu" method="_main_host_pressed"]
+[connection signal="pressed" from="Menu/Main/Join" to="Menu" method="_main_join_pressed"]
+[connection signal="pressed" from="Menu/Joining/Join/Button" to="Menu" method="_joining_join_pressed"]
+[connection signal="pressed" from="Menu/Hosting/Players/Subtract" to="Menu" method="_hosting_players_subtract"]
+[connection signal="pressed" from="Menu/Hosting/Players/Add" to="Menu" method="_hosting_players_add"]
+[connection signal="pressed" from="Menu/Hosting/Cards/Subtract" to="Menu" method="_hosting_cards_subtract"]
+[connection signal="pressed" from="Menu/Hosting/Cards/Add" to="Menu" method="_hosting_cards_add"]
+[connection signal="pressed" from="Menu/Hosting/Create/Button" to="Menu" method="_hosting_host_pressed"]
+[connection signal="pressed" from="Menu/Lobby/Container/Copy" to="Menu" method="_lobby_copy_pressed"]
+[connection signal="pressed" from="Menu/Lobby/Buttons/Container/Leave" to="Menu" method="_lobby_leave_pressed"]
+[connection signal="pressed" from="Menu/Lobby/Buttons/Container/Start" to="Menu" method="_lobby_start_pressed"]

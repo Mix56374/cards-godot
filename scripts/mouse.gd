@@ -36,13 +36,9 @@ func hand_repos(player):
 
 func new_card(card_id, player):
 	var card = base_card.instantiate()
-	card.material = ShaderMaterial.new()
-	card.material.shader = outline_shader.duplicate(true)
 	card.set_meta("card_id", card_id)
 	card.position = deck.position
-	#card.position = screen.size - (card.get_rect().size * card.scale)/2 - Vector2(40.0 - (i/10), 40.0 - (i/10))
-	#card.set_meta("rotation", rng.randf_range(-0.02, 0.02))
-	deck.add_child(card)
+	deck.add_child(card, true)
 	var player_cards = player.get_meta("cards")
 	player_cards.append(card)
 	player_cards.sort_custom(sort_cards)
@@ -131,7 +127,7 @@ func card_exists(card_id):
 func _ready():
 	for i in range(players_amt):
 		var player = base_player.instantiate()
-		players.add_child(player)
+		players.add_child(player, true)
 		player.set_meta("cards", player.get_meta("cards").duplicate())
 		player.set_meta("selected_cards", player.get_meta("selected_cards").duplicate())
 		var rot = i/(players_amt/TAU)

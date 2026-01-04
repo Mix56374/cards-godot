@@ -4,6 +4,7 @@ var peer
 var online_id
 var timeout_signal = false
 
+var base_world = preload("res://scenes/world.tscn")
 var base_player = preload("res://scenes/player_menu.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var toast = %Toast
@@ -17,11 +18,8 @@ var base_player = preload("res://scenes/player_menu.tscn")
 @onready var joining = $Joining
 @onready var joining_code = $Joining/Code
 
-@onready var hosting = $Hosting
-@onready var hosting_players = $Hosting/Players/Amount
-@onready var hosting_cards = $Hosting/Cards/Amount
-
 @onready var lobby = $Lobby
+@onready var lobby_cards = $Lobby/Cards
 @onready var lobby_players = $Lobby/Players/Container
 @onready var lobby_code = $Lobby/Container/Code
 @onready var lobby_copy = $Lobby/Container/Copy
@@ -89,28 +87,50 @@ func _peer_connected(id):
 		var players = game.get_meta("players")
 		players.append(id)
 		update_players()
+		cards_change(0)
 
 func _peer_disconnected(id):
 	if id != get_multiplayer_authority():
 		toast.new("Player " + str(id) + " left", 0)
+	else:
+		toast.new("Lobby closed", 2)
 	
 	if is_multiplayer_authority():
 		var players = game.get_meta("players")
 		players.erase(id)
 		update_players()
-	elif id == get_multiplayer_authority():
-		print("server")
+	elif id == get_multiplayer_authority() and id != game.get_meta("id"):
 		_lobby_leave_pressed()
 
 func _room_left():
-	print("left")
+	game.set_meta("id", 0)
+	game.set_meta("players", [])
+	game.set_meta("lobby_id", "")
+	main.show()
+	toast.new("Lobby left", 0)
 
 # Main
 
 func _main_host_pressed():
-	main.hide()
-	hosting.show()
-	back.show()
+	if game.get_meta("can_host"):
+		game.set_meta("lobby_id", online_id)
+		lobby_code.text = "Lobby ID: " + online_id
+		lobby_copy.show()
+		
+		game.set_meta("players", [1])
+		
+		peer.host()
+		await peer.hosting
+		
+		main.hide()
+		lobby.show()
+		lobby_cards.show()
+		lobby_start.show()
+		toast.new("Lobby created", 1)
+		
+		update_players()
+	else:
+		toast.new("Your build cannot host", 0)
 
 func _main_join_pressed():
 	main.hide()
@@ -121,7 +141,6 @@ func _main_join_pressed():
 
 func _back_pressed():
 	joining.hide()
-	hosting.hide()
 	back.hide()
 	main.show()
 
@@ -132,6 +151,7 @@ func _joining_join_pressed():
 		peer.join(joining_code.text)
 		
 		if await await_timeout(peer.joined, 6.0):
+			game.set_meta("id", multiplayer.get_unique_id())
 			toast.new("Connected", 1)
 			joining.hide()
 			back.hide()
@@ -140,44 +160,14 @@ func _joining_join_pressed():
 		else:
 			toast.new("Connection timeout", 2)
 
-# Hosting
-
-func _hosting_host_pressed():
-	game.set_meta("lobby_id", online_id)
-	lobby_code.text = "Lobby ID: " + online_id
-	lobby_copy.show()
-	
-	game.set_meta("players", [1])
-	
-	peer.host()
-	await peer.hosting
-	
-	hosting.hide()
-	back.hide()
-	lobby.show()
-	lobby_start.show()
-	
-	update_players()
-
-func players_change(amt):
-	game.set_meta("players_amount", clamp(game.get_meta("players_amount") + amt, 2, 6))
-	cards_change(0)
-	hosting_players.text = str(game.get_meta("players_amount"))
-
 func cards_change(amt):
-	game.set_meta("cards_amount", clamp(game.get_meta("cards_amount") + amt, 1, int(floor(52.0/float(game.get_meta("players_amount"))))))
-	hosting_cards.text = str(game.get_meta("cards_amount"))
+	game.set_meta("cards_amount", clamp(game.get_meta("cards_amount") + amt, 1, int(floor(52.0/float(clamp(game.get_meta("players").size(), 2, 6) + 3)))))
+	lobby_cards.get_node("Amount").text = str(game.get_meta("cards_amount"))
 
-func _hosting_players_add():
-	players_change(1)
-
-func _hosting_players_subtract():
-	players_change(-1)
-
-func _hosting_cards_add():
+func _lobby_cards_add():
 	cards_change(1)
 
-func _hosting_cards_subtract():
+func _lobby_cards_subtract():
 	cards_change(-1)
 
 # Lobby
@@ -188,12 +178,17 @@ func _lobby_copy_pressed():
 func _lobby_leave_pressed():
 	peer.leave_room()
 	await peer.room_left
-	game.set_meta("players", [])
-	game.set_meta("lobby_id", "")
-	toast.new("Lobby left", 0)
 	
 	lobby.hide()
 	main.show()
 
 func _lobby_start_pressed():
-	pass
+	if is_multiplayer_authority():
+		var players = game.get_meta("players").size()
+		if players >= 2 and players <= 6:
+			hide()
+			var world = base_world.instantiate()
+			game.add_child(world, true)
+			toast.new("Game started", 1)
+		else:
+			toast.new("You need 2-6 players", 2)

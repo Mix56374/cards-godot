@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnhgv62itjbsf"]
+[gd_scene load_steps=9 format=3 uid="uid://cnhgv62itjbsf"]
 
 [ext_resource type="Script" uid="uid://bcpxuaif15wdo" path="res://scripts/toast.gd" id="1_iywne"]
 [ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_lbhrr"]
@@ -19,10 +19,10 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:metadata/lobby_id")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:metadata/players_amount")
+properties/4/path = NodePath(".:metadata/cards_amount")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath(".:metadata/cards_amount")
+properties/5/path = NodePath("UI/Menu:visible")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
@@ -40,8 +40,6 @@ corner_detail = 5
 expand_margin_left = 12.0
 expand_margin_right = 12.0
 
-[sub_resource type="Theme" id="Theme_vjb58"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
 content_margin_left = 14.0
 content_margin_top = 14.0
@@ -56,9 +54,14 @@ corner_detail = 5
 
 [node name="Game" type="Node"]
 metadata/players = []
-metadata/players_amount = 4
 metadata/cards_amount = 4
 metadata/lobby_id = ""
+metadata/id = 0
+metadata/can_host = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dbe25rm777nk7")
+spawn_path = NodePath("..")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_lbhrr")
@@ -150,70 +153,6 @@ layout_mode = 2
 theme = ExtResource("2_iywne")
 text = " Join Game "
 
-[node name="Hosting" type="VBoxContainer" parent="UI/Menu"]
-visible = false
-layout_mode = 2
-theme = SubResource("Theme_vjb58")
-theme_override_constants/separation = 16
-
-[node name="Players" type="HBoxContainer" parent="UI/Menu/Hosting"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Menu/Hosting/Players"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "Players:"
-
-[node name="Subtract" type="Button" parent="UI/Menu/Hosting/Players"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "  -  "
-
-[node name="Amount" type="Label" parent="UI/Menu/Hosting/Players"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "4"
-
-[node name="Add" type="Button" parent="UI/Menu/Hosting/Players"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "  +  "
-
-[node name="Cards" type="HBoxContainer" parent="UI/Menu/Hosting"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Menu/Hosting/Cards"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "Cards:"
-
-[node name="Subtract" type="Button" parent="UI/Menu/Hosting/Cards"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "  -  "
-
-[node name="Amount" type="Label" parent="UI/Menu/Hosting/Cards"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "4"
-
-[node name="Add" type="Button" parent="UI/Menu/Hosting/Cards"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = "  +  "
-
-[node name="Create" type="CenterContainer" parent="UI/Menu/Hosting"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="UI/Menu/Hosting/Create"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-text = " Create Lobby "
-
 [node name="Lobby" type="VBoxContainer" parent="UI/Menu"]
 visible = false
 layout_mode = 2
@@ -254,6 +193,32 @@ theme_override_constants/separation = 14
 _spawnable_scenes = PackedStringArray("uid://c3l5bvxy6ro2e")
 spawn_path = NodePath("../Container")
 
+[node name="Cards" type="HBoxContainer" parent="UI/Menu/Lobby"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Menu/Lobby/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Cards:"
+
+[node name="Subtract" type="Button" parent="UI/Menu/Lobby/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  -  "
+
+[node name="Amount" type="Label" parent="UI/Menu/Lobby/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "4"
+
+[node name="Add" type="Button" parent="UI/Menu/Lobby/Cards"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "  +  "
+
 [node name="Buttons" type="CenterContainer" parent="UI/Menu/Lobby"]
 layout_mode = 2
 
@@ -291,12 +256,9 @@ vertical_icon_alignment = 0
 [connection signal="pressed" from="UI/Menu/Main/Host" to="UI/Menu" method="_main_host_pressed"]
 [connection signal="pressed" from="UI/Menu/Main/Join" to="UI/Menu" method="_main_join_pressed"]
 [connection signal="pressed" from="UI/Menu/Joining/Join/Button" to="UI/Menu" method="_joining_join_pressed"]
-[connection signal="pressed" from="UI/Menu/Hosting/Players/Subtract" to="UI/Menu" method="_hosting_players_subtract"]
-[connection signal="pressed" from="UI/Menu/Hosting/Players/Add" to="UI/Menu" method="_hosting_players_add"]
-[connection signal="pressed" from="UI/Menu/Hosting/Cards/Subtract" to="UI/Menu" method="_hosting_cards_subtract"]
-[connection signal="pressed" from="UI/Menu/Hosting/Cards/Add" to="UI/Menu" method="_hosting_cards_add"]
-[connection signal="pressed" from="UI/Menu/Hosting/Create/Button" to="UI/Menu" method="_hosting_host_pressed"]
 [connection signal="pressed" from="UI/Menu/Lobby/Container/Copy" to="UI/Menu" method="_lobby_copy_pressed"]
+[connection signal="pressed" from="UI/Menu/Lobby/Cards/Subtract" to="UI/Menu" method="_lobby_cards_subtract"]
+[connection signal="pressed" from="UI/Menu/Lobby/Cards/Add" to="UI/Menu" method="_lobby_cards_add"]
 [connection signal="pressed" from="UI/Menu/Lobby/Buttons/Container/Leave" to="UI/Menu" method="_lobby_leave_pressed"]
 [connection signal="pressed" from="UI/Menu/Lobby/Buttons/Container/Start" to="UI/Menu" method="_lobby_start_pressed"]
 [connection signal="pressed" from="UI/Back" to="UI/Menu" method="_back_pressed"]

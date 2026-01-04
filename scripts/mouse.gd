@@ -2,9 +2,7 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
-# 2-6 players visual soft limit
-var players_amt = 4
-
+@onready var game = get_tree().get_root().get_node("Game")
 @onready var players = $Players
 var local_player
 
@@ -125,9 +123,15 @@ func card_exists(card_id):
 	return false
 
 func _ready():
+	if not is_multiplayer_authority():
+		return
+	
+	var players_amt = game.get_meta("players").size()
+	
 	for i in range(players_amt):
 		var player = base_player.instantiate()
 		players.add_child(player, true)
+		player.set_meta("id", game.get_meta("players")[i])
 		player.set_meta("cards", player.get_meta("cards").duplicate())
 		player.set_meta("selected_cards", player.get_meta("selected_cards").duplicate())
 		var rot = i/(players_amt/TAU)
@@ -146,7 +150,7 @@ func _ready():
 	local_player = players.get_child(0)
 	
 	timer.start()
-	for i in range(4):
+	for i in range(game.get_meta("cards_amount")):
 		for player in players.get_children():
 			var card_id = randi_range(1, 52)
 			while card_exists(card_id):
@@ -171,11 +175,12 @@ func _process(_delta):
 				#hover_card.set_meta("target", node)
 		#
 	#else:
-	var card_nodes = get_tree().get_nodes_in_group("Cards")
-	hover_card = null
-	for card in card_nodes:
-		if card.get_meta("interactable") and card.get_rect().has_point(card.to_local(mouse)):
-			hover_card = card
-	
-	for card in card_nodes:
-		card.set_meta("hover", card == hover_card)
+	if local_player:
+		var card_nodes = local_player.get_meta("cards")
+		hover_card = null
+		for card in card_nodes:
+			if card.get_meta("interactable") and card.get_rect().has_point(card.to_local(mouse)):
+				hover_card = card
+		
+		for card in card_nodes:
+			card.set_meta("hover", card == hover_card)

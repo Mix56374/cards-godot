@@ -1,7 +1,22 @@
-[gd_scene format=3 uid="uid://dbsfy7v0ipw6a"]
+[gd_scene load_steps=2 format=3 uid="uid://dbsfy7v0ipw6a"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u8vuu"]
+properties/0/path = NodePath(".:metadata/id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:metadata/cards")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:metadata/selected_cards")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="Node2D"]
 metadata/cards = []
 metadata/selected_cards = []
 metadata/rotation = 0.0
 metadata/scale = 0.25
+metadata/id = 0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_u8vuu")

@@ -24,6 +24,14 @@ shader_parameter/interval = 0.10000000149012
 [node name="World" type="Node2D"]
 script = ExtResource("1_rwgxs")
 
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dbsfy7v0ipw6a")
+spawn_path = NodePath("../Players")
+
+[node name="CardSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dbsfy7v0ipw6a")
+spawn_path = NodePath("../Deck")
+
 [node name="Deck" type="Sprite2D" parent="."]
 top_level = true
 z_index = -1

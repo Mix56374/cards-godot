@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnhgv62itjbsf"]
+[gd_scene load_steps=8 format=3 uid="uid://cnhgv62itjbsf"]
 
 [ext_resource type="Script" uid="uid://bcpxuaif15wdo" path="res://scripts/toast.gd" id="1_iywne"]
 [ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_lbhrr"]
 [ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="2_iywne"]
 [ext_resource type="Texture2D" uid="uid://cc0c6igotgn1a" path="res://images/copy.svg" id="3_p57ef"]
-[ext_resource type="Texture2D" uid="uid://c8vhx4psy2r2w" path="res://images/arrow-left.svg" id="4_iywne"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lbhrr"]
 properties/0/path = NodePath(".:metadata/players")
@@ -26,6 +25,18 @@ properties/5/path = NodePath("UI/Menu:visible")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
 content_margin_left = 0.0
 content_margin_top = 0.0
@@ -39,18 +50,6 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 expand_margin_left = 12.0
 expand_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
-content_margin_left = 14.0
-content_margin_top = 14.0
-content_margin_right = 14.0
-content_margin_bottom = 14.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
 
 [node name="Game" type="Node"]
 metadata/players = []
@@ -67,47 +66,6 @@ spawn_path = NodePath("..")
 replication_config = SubResource("SceneReplicationConfig_lbhrr")
 
 [node name="UI" type="Node" parent="."]
-
-[node name="Toast" type="PanelContainer" parent="UI"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -60.0
-offset_right = 20.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_lnu2h")
-script = ExtResource("1_iywne")
-
-[node name="Label" type="Label" parent="UI/Toast"]
-layout_mode = 2
-theme = ExtResource("2_iywne")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-
-[node name="Timer" type="Timer" parent="UI/Toast"]
-wait_time = 4.0
-one_shot = true
-ignore_time_scale = true
-
-[node name="Build" type="Label" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -28.0
-offset_right = 86.0
-offset_bottom = -5.0
-grow_vertical = 0
-text = "Build 0.1.0"
-vertical_alignment = 2
 
 [node name="Menu" type="CenterContainer" parent="UI"]
 anchors_preset = 15
@@ -142,13 +100,25 @@ layout_mode = 2
 theme = ExtResource("2_iywne")
 placeholder_text = " Enter Lobby ID "
 alignment = 1
+max_length = 11
 expand_to_text_length = true
+context_menu_enabled = false
 emoji_menu_enabled = false
 
 [node name="Join" type="CenterContainer" parent="UI/Menu/Joining"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="UI/Menu/Joining/Join"]
+[node name="Buttons" type="HBoxContainer" parent="UI/Menu/Joining"]
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="Back" type="Button" parent="UI/Menu/Joining/Buttons"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Back"
+
+[node name="Join" type="Button" parent="UI/Menu/Joining/Buttons"]
 layout_mode = 2
 theme = ExtResource("2_iywne")
 text = " Join Game "
@@ -243,22 +213,53 @@ text = "Start"
 wait_time = 0.05
 ignore_time_scale = true
 
-[node name="Back" type="Button" parent="UI"]
+[node name="Toast" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 54.0
-offset_bottom = 54.0
-icon = ExtResource("4_iywne")
-vertical_icon_alignment = 0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lnu2h")
+script = ExtResource("1_iywne")
+
+[node name="Label" type="Label" parent="UI/Toast"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/Toast"]
+wait_time = 4.0
+one_shot = true
+ignore_time_scale = true
+
+[node name="Build" type="Label" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -28.0
+offset_right = 86.0
+offset_bottom = -5.0
+grow_vertical = 0
+text = "Build 0.1.0"
+vertical_alignment = 2
 
 [connection signal="pressed" from="UI/Menu/Main/Host" to="UI/Menu" method="_main_host_pressed"]
 [connection signal="pressed" from="UI/Menu/Main/Join" to="UI/Menu" method="_main_join_pressed"]
-[connection signal="pressed" from="UI/Menu/Joining/Join/Button" to="UI/Menu" method="_joining_join_pressed"]
+[connection signal="pressed" from="UI/Menu/Joining/Buttons/Back" to="UI/Menu" method="_joined_back_pressed"]
+[connection signal="pressed" from="UI/Menu/Joining/Buttons/Join" to="UI/Menu" method="_joining_join_pressed"]
 [connection signal="pressed" from="UI/Menu/Lobby/Container/Copy" to="UI/Menu" method="_lobby_copy_pressed"]
 [connection signal="pressed" from="UI/Menu/Lobby/Cards/Subtract" to="UI/Menu" method="_lobby_cards_subtract"]
 [connection signal="pressed" from="UI/Menu/Lobby/Cards/Add" to="UI/Menu" method="_lobby_cards_add"]
 [connection signal="pressed" from="UI/Menu/Lobby/Buttons/Container/Leave" to="UI/Menu" method="_lobby_leave_pressed"]
 [connection signal="pressed" from="UI/Menu/Lobby/Buttons/Container/Start" to="UI/Menu" method="_lobby_start_pressed"]
-[connection signal="pressed" from="UI/Back" to="UI/Menu" method="_back_pressed"]

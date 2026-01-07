@@ -160,8 +160,8 @@ func _ready():
 			await timer.timeout
 	timer.stop()
 	
-	for card in local_player.get_meta("cards"):
-				card.set_meta("interactable", true)
+	for card in get_tree().get_nodes_in_group("Cards"):
+		card.set_meta("interactable", true)
 
 func _process(_delta):
 	var mouse = viewport.get_mouse_position()

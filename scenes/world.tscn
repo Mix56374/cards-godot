@@ -29,7 +29,7 @@ _spawnable_scenes = PackedStringArray("uid://dbsfy7v0ipw6a")
 spawn_path = NodePath("../Players")
 
 [node name="CardSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://dbsfy7v0ipw6a")
+_spawnable_scenes = PackedStringArray("uid://ccwpv05fjn3mr")
 spawn_path = NodePath("../Deck")
 
 [node name="Deck" type="Sprite2D" parent="."]

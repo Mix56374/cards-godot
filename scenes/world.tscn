@@ -69,7 +69,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Players" type="Node2D" parent="."]
-metadata/losing_cards = []
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

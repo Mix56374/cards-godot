@@ -72,8 +72,6 @@ func play_card(card_id, id):
 	card.remove_from_group("Idle")
 	for idle_card in get_tree().get_nodes_in_group("Idle"):
 		if idle_card.get_meta("card_id") <= card.get_meta("card_id"):
-			var losing_cards = players.get_meta("losing_cards")
-			losing_cards.append(idle_card)
 			idle_card.set_meta("flip", false)
 			idle_card.set_meta("losing", true)
 	
@@ -124,18 +122,24 @@ func _unhandled_input(event):
 			timer.start()
 			for card in selected_cards:
 				play_card.rpc(card.get_meta("card_id"), local_player.get_meta("id"))
-				if players.get_meta("losing_cards"):
+				if is_losing():
 					break
 				await timer.timeout
 			timer.stop()
 			
-			if not players.get_meta("losing_cards"):
+			if is_losing():
+				end_game.rpc(false)
+			else:
 				if get_tree().get_node_count_in_group("Idle") > 0:
 					interact_local_cards.rpc(true)
 				else:
 					end_game.rpc(true)
-			else:
-				end_game.rpc(false)
+
+func is_losing():
+	for card in get_tree().get_nodes_in_group("Idle"):
+		if card.get_meta("losing"):
+			return true
+	return false
 
 @rpc("any_peer", "call_local", "reliable")
 func end_game(win):

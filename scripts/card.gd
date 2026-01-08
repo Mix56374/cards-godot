@@ -17,18 +17,12 @@ var select = 0.0
 var losing = 0.0
 var hover = 0.0
 
-func _enter_tree():
+func _ready():
 	set_meta("scale", scale.y)
 	var card_id = get_meta("card_id")
-	ftexture = load("res://cards/card_"+str(card_id)+".png")
+	ftexture = load("res://cards/card_" + str(card_id) + ".png")
 	set_deferred("texture", btexture)
 	set_deferred("float", floatf)
-	
-	#var target = get_meta("target")
-	#if target:
-		#position = target
-	#else:
-		#position = get_meta("position")
 	
 	zrot = float(get_meta("flip")) * 2.0
 	if zrot > 1.0:
@@ -78,7 +72,6 @@ func _process(delta):
 	scale = Vector2(size, size)
 	scale.x = lerp(size, -size, zrot/2)
 	
-	#if get_meta("float"):
 	offset.y = select * -150.0
 	if not get_meta("losing"):
 		material.set_shader_parameter("color", Color.WHITE)
@@ -86,8 +79,6 @@ func _process(delta):
 	else:
 		material.set_shader_parameter("color", Color.CRIMSON)
 		material.set_shader_parameter("width", losing * 10.0)
-	
-	# Fix the floating animation on lines 57 and 60 so it is integrated into the overall code better, and can smoothly be toggled on or off, and no I will NOT be fixing the magic numbers -- nevermind i dont got TIME
 	
 	if zrot > 1.0:
 		texture = btexture

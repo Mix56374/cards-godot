@@ -9,9 +9,6 @@ var base_player = preload("res://scenes/player_menu.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var toast = %Toast
 @onready var timer = $Timer
-@onready var username = %Username
-@onready var username_input = %Username/TextInput
-@onready var username_label = %Username/Label
 
 @onready var main = $Main
 @onready var main_host = $Main/Host
@@ -19,6 +16,7 @@ var base_player = preload("res://scenes/player_menu.tscn")
 
 @onready var joining = $Joining
 @onready var joining_code = $Joining/Code
+@onready var joining_join = $Joining/Buttons/Join
 
 @onready var lobby = $Lobby
 @onready var lobby_cards = $Lobby/Cards
@@ -78,8 +76,8 @@ func _peer_connected(id):
 		players.append(id)
 		
 		var player = base_player.instantiate()
-		player.player_id = id
 		player.set_meta("id", id)
+		player.get_node("Label").text = "Player " + str(id)
 		lobby_players.add_child(player, true)
 		
 		cards_change(0)
@@ -112,32 +110,30 @@ func _room_left():
 # Main
 
 func _main_host_pressed():
-	if username_input.text.length() <= 0:
-		toast.new("You need a username", 2)
-	elif game.get_meta("can_host"):
-		game.set_meta("lobby_id", online_id)
-		game.set_meta("id", 1)
-		lobby_code.text = "Lobby ID: " + online_id
-		lobby_copy.show()
-		
-		game.set_meta("players", [1])
-		
+	if game.get_meta("can_host"):
+		main_host.disabled = true
 		peer.host()
 		await peer.hosting
 		
-		username_label.text = username_input.text
-		username_label.show()
-		username_input.hide()
+		var id = multiplayer.get_unique_id()
+		
+		game.set_meta("lobby_id", online_id)
+		game.set_meta("id", id)
+		lobby_code.text = "Lobby ID: " + online_id
+		lobby_copy.show()
+		
+		game.set_meta("players", [id])
 		
 		main.hide()
 		lobby.show()
 		lobby_cards.show()
 		lobby_start.show()
+		main_host.disabled = false
 		toast.new("Lobby created", 1)
 		
 		var player = base_player.instantiate()
-		player.set_meta("id", multiplayer.get_unique_id())
-		player.get_node("Label").text = username_input.text
+		player.set_meta("id", id)
+		player.get_node("Label").text = "Player " + str(id)
 		lobby_players.add_child(player, true)
 	else:
 		toast.new("Your build cannot host", 0)
@@ -153,9 +149,7 @@ func _joined_back_pressed():
 	main.show()
 
 func _joining_join_pressed():
-	if username_input.text.length() <= 0:
-		toast.new("You need a username", 2)
-	elif joining_code.text.length() <= 0:
+	if joining_code.text.length() <= 0:
 		toast.new("Lobby ID is too short", 2)
 	else:
 		peer.join(joining_code.text)
@@ -169,18 +163,6 @@ func _joining_join_pressed():
 			lobby.show()
 			lobby_start.hide()
 			
-			username_label.text = username_input.text
-			username_label.show()
-			username_input.hide()
-			
-			timer.start()
-			for i in range(20):
-				var player = find_player(multiplayer.get_unique_id())
-				if player:
-					player.get_node("Label").text = username_input.text
-					break
-				await timer.timeout
-			timer.stop()
 		else:
 			toast.new("Connection timeout", 2)
 
@@ -203,17 +185,17 @@ func _lobby_leave_pressed():
 	peer.leave_room()
 	await peer.room_left
 	
-	for player in lobby_players.get_children():
-		player.queue_free()
-	
-	username_label.hide()
-	username_input.show()
+	if is_multiplayer_authority():
+		for player in lobby_players.get_children():
+			player.queue_free()
 	
 	lobby.hide()
 	main.show()
 
 func _lobby_start_pressed():
 	if is_multiplayer_authority():
+		print(game)
+		print(game.get_meta("players"))
 		var players = game.get_meta("players").size()
 		if players >= 2 and players <= 6:
 			hide()

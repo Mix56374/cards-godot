@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccwpv05fjn3mr"]
+[gd_scene load_steps=5 format=3 uid="uid://ccwpv05fjn3mr"]
 
 [ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="1_6u4wf"]
 [ext_resource type="Shader" uid="uid://djt3tj54o1qxv" path="res://shaders/outline.gdshader" id="1_ktuci"]
@@ -13,36 +13,11 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ktuci"]
-properties/0/path = NodePath(".:metadata/card_id")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:metadata/selected")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:metadata/losing")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:metadata/hover")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:metadata/float")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath(".:metadata/rotation")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath(".:metadata/flip")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath(".:metadata/interactable")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-
 [node name="Card" type="Sprite2D" groups=["Cards", "Idle"]]
 top_level = true
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_ktuci")
+position = Vector2(697.5, 425)
 scale = Vector2(-0.25, 0.25)
 texture = ExtResource("1_6u4wf")
 script = ExtResource("2_q5obu")
@@ -58,6 +33,3 @@ metadata/float = false
 metadata/target = Vector2(0, 0)
 metadata/selected = false
 metadata/losing = false
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_ktuci")

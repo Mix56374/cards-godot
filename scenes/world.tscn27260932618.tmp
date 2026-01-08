@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbe25rm777nk7"]
+[gd_scene load_steps=8 format=3 uid="uid://dbe25rm777nk7"]
 
 [ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://scripts/mouse.gd" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="2_71j4m"]
 [ext_resource type="Shader" uid="uid://b1gehafna1f1y" path="res://trash/pixelate.gdshader" id="3_4wyf3"]
 [ext_resource type="Shader" uid="uid://3sckgxuvlghu" path="res://trash/dither.gdshader" id="4_k0juu"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_k0juu"]
+properties/0/path = NodePath(".:metadata/players")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k0juu"]
 shader = ExtResource("3_4wyf3")
@@ -23,6 +28,9 @@ shader_parameter/interval = 0.10000000149012
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_rwgxs")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_k0juu")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dbsfy7v0ipw6a")
@@ -79,7 +87,6 @@ wait_time = 0.1
 
 [node name="EndLabel" type="Label" parent="."]
 visible = false
-z_index = 53
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

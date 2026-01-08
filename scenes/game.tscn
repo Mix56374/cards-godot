@@ -253,8 +253,17 @@ offset_top = -28.0
 offset_right = 86.0
 offset_bottom = -5.0
 grow_vertical = 0
-text = "Build 1.0.0a"
+text = "Build 1.0.1a"
 vertical_alignment = 2
+
+[node name="Username" type="Label" parent="UI"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 5.0
+offset_right = 118.0
+offset_bottom = 52.0
+theme = ExtResource("2_iywne")
+vertical_alignment = 1
 
 [connection signal="pressed" from="UI/Menu/Main/Host" to="UI/Menu" method="_main_host_pressed"]
 [connection signal="pressed" from="UI/Menu/Main/Join" to="UI/Menu" method="_main_join_pressed"]

@@ -61,7 +61,7 @@ func get_card(card_id):
 
 func get_player(id):
 	for player in players.get_children():
-		if player.get_meta("id") == game.get_meta("players")[id - 1]:
+		if player.get_meta("id") == id:
 			return player
 	return null
 
@@ -152,7 +152,7 @@ func end_game(win):
 	end_label.show()
 	
 	timer.start()
-	for i in range(6):
+	for i in range(7):
 		await timer.timeout
 	timer.stop()
 	game.get_node("UI").get_node("Menu").show()
@@ -182,11 +182,11 @@ func player_repos(amt):
 	
 	if passthrough:
 		for i in range(amt):
-			var player = get_player(i + 1)
+			var player = get_player(game.get_meta("players")[i])
 			player.set_meta("cards", player.get_meta("cards").duplicate())
 			player.set_meta("selected_cards", player.get_meta("selected_cards").duplicate())
 			
-			i = (amt + (i - (game.get_meta("id") -1)))%amt
+			i = (amt + (i - game.get_meta("players").find(game.get_meta("id"))))%amt
 			
 			var rot = i/(amt/TAU)
 			

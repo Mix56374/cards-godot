@@ -8,6 +8,7 @@ var base_world = preload("res://scenes/world.tscn")
 var base_player = preload("res://scenes/player_menu.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var toast = %Toast
+@onready var username = %Username
 @onready var timer = $Timer
 
 @onready var main = $Main
@@ -102,6 +103,7 @@ func _peer_disconnected(id):
 
 func _room_left():
 	game.set_meta("id", 0)
+	username.text = ""
 	game.set_meta("players", [])
 	game.set_meta("lobby_id", "")
 	main.show()
@@ -119,6 +121,7 @@ func _main_host_pressed():
 		
 		game.set_meta("lobby_id", online_id)
 		game.set_meta("id", id)
+		username.text = "Player " + str(id)
 		lobby_code.text = "Lobby ID: " + online_id
 		lobby_copy.show()
 		
@@ -157,6 +160,7 @@ func _joining_join_pressed():
 		if await await_timeout(peer.joined, 6.0):
 			var id = multiplayer.get_unique_id()
 			game.set_meta("id", id)
+			username.text = "Player " + str(id)
 			toast.new("Connected", 1)
 			
 			joining.hide()
@@ -194,8 +198,6 @@ func _lobby_leave_pressed():
 
 func _lobby_start_pressed():
 	if is_multiplayer_authority():
-		print(game)
-		print(game.get_meta("players"))
 		var players = game.get_meta("players").size()
 		if players >= 2 and players <= 6:
 			hide()

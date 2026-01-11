@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbe25rm777nk7"]
+[gd_scene load_steps=8 format=3 uid="uid://dbe25rm777nk7"]
 
 [ext_resource type="Script" uid="uid://d4f7uc4p8035c" path="res://scripts/mouse.gd" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://dytew0fxk3j2d" path="res://cards/card_back.png" id="2_71j4m"]
 [ext_resource type="Shader" uid="uid://b1gehafna1f1y" path="res://trash/pixelate.gdshader" id="3_4wyf3"]
 [ext_resource type="Shader" uid="uid://3sckgxuvlghu" path="res://trash/dither.gdshader" id="4_k0juu"]
+[ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="5_71j4m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k0juu"]
 shader = ExtResource("3_4wyf3")
@@ -21,7 +22,7 @@ shader_parameter/animated_dithering = true
 shader_parameter/smooth_animate = true
 shader_parameter/interval = 0.10000000149012
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node"]
 script = ExtResource("1_rwgxs")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -95,3 +96,22 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 100
 text = "You Win!"
+
+[node name="PlayCards" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 640.0
+offset_top = 817.0
+offset_right = 640.0
+offset_bottom = 817.0
+grow_horizontal = 2
+grow_vertical = 2
+use_top_left = true
+
+[node name="Button" type="Button" parent="PlayCards"]
+layout_mode = 2
+theme = ExtResource("5_71j4m")
+text = " Play Cards "
+
+[connection signal="pressed" from="PlayCards/Button" to="." method="_play_cards_pressed"]

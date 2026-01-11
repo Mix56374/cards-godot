@@ -9,6 +9,7 @@ var base_player = preload("res://scenes/player_menu.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var toast = %Toast
 @onready var username = %Username
+@onready var data = %Data
 @onready var timer = $Timer
 
 @onready var main = $Main
@@ -201,6 +202,7 @@ func _lobby_start_pressed():
 		var players = game.get_meta("players").size()
 		if players >= 2 and players <= 6:
 			hide()
+			data.hide()
 			var world = base_world.instantiate()
 			game.add_child(world, true)
 			toast.new("Game started", 1)

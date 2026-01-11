@@ -4,7 +4,10 @@ var rng = RandomNumberGenerator.new()
 
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var players = $Players
+@onready var data = game.get_node("UI").get_node("Data")
 var local_player
+var start_time = 0
+var cards_played = 0
 
 @onready var end_label = $EndLabel
 @onready var timer = $Timer
@@ -67,12 +70,16 @@ func get_player(id):
 
 @rpc("any_peer", "call_local", "reliable")
 func play_card(card_id, id):
+	if is_multiplayer_authority():
+		if cards_played <= 0:
+			start_time = round(Time.get_ticks_msec()/1000)
+		cards_played += 1
+	
 	var player = get_player(id)
 	var card = get_card(card_id)
 	card.remove_from_group("Idle")
 	for idle_card in get_tree().get_nodes_in_group("Idle"):
 		if idle_card.get_meta("card_id") <= card.get_meta("card_id"):
-			idle_card.set_meta("flip", false)
 			idle_card.set_meta("losing", true)
 	
 	card.z_index = card.get_meta("card_id")
@@ -88,11 +95,16 @@ func play_card(card_id, id):
 	player_cards.erase(card)
 	hand_repos(player)
 
+@rpc("any_peer", "call_local", "reliable")
+func select_card(card_id, select):
+	var card = get_card(card_id)
+	card.set_meta("selected", select)
+
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_pressed() and hover_card:
-				hover_card.set_meta("selected", not hover_card.get_meta("selected"))
+				select_card.rpc(hover_card.get_meta("card_id"), not hover_card.get_meta("selected"))
 				
 				var selected_cards = local_player.get_meta("selected_cards")
 				if hover_card.get_meta("selected"):
@@ -100,40 +112,33 @@ func _unhandled_input(event):
 				elif selected_cards.has(hover_card):
 					selected_cards.erase(hover_card)
 		
-		#elif event.button_index == MOUSE_BUTTON_RIGHT:
-			#if event.is_pressed() and hover_card:
-				#hover_card.set_meta("flip", not hover_card.get_meta("flip"))
+	elif event is InputEventKey and event.is_action_pressed("play"):
+		play_selected_cards()
+
+func play_selected_cards():
+	var selected_cards = local_player.get_meta("selected_cards")
 		
-		#elif event.button_index == MOUSE_BUTTON_MIDDLE:
-			#if event.is_pressed():
-				#new_card(rng.randi_range(1, 52), local_player)
-			#if event.is_pressed() and hover_card:
-				#hover_card.set_meta("float", not hover_card.get_meta("float"))
-	
-	elif event is InputEventKey:
-		var selected_cards = local_player.get_meta("selected_cards")
+	if selected_cards.size() > 0:
+		local_player.set_meta("selected_cards", [])
+		selected_cards.sort_custom(sort_cards)
 		
-		if event.is_action_pressed("play") and selected_cards.size() > 0:
-			local_player.set_meta("selected_cards", [])
-			selected_cards.sort_custom(sort_cards)
-			
-			interact_local_cards.rpc(false)
-			
-			timer.start()
-			for card in selected_cards:
-				play_card.rpc(card.get_meta("card_id"), local_player.get_meta("id"))
-				if is_losing():
-					break
-				await timer.timeout
-			timer.stop()
-			
+		interact_local_cards.rpc(false)
+		
+		timer.start()
+		for card in selected_cards:
+			play_card.rpc(card.get_meta("card_id"), local_player.get_meta("id"))
 			if is_losing():
-				end_game.rpc(false)
+				break
+			await timer.timeout
+		timer.stop()
+		
+		if is_losing():
+			end_game.rpc(false)
+		else:
+			if get_tree().get_node_count_in_group("Idle") > 0:
+				interact_local_cards.rpc(true)
 			else:
-				if get_tree().get_node_count_in_group("Idle") > 0:
-					interact_local_cards.rpc(true)
-				else:
-					end_game.rpc(true)
+				end_game.rpc(true)
 
 func is_losing():
 	for card in get_tree().get_nodes_in_group("Idle"):
@@ -151,6 +156,8 @@ func end_game(win):
 		end_label.text = "You All Win!"
 		end_label.add_theme_color_override("font_color", Color.LIGHT_GREEN)
 	else:
+		for card in get_tree().get_nodes_in_group("Idle"):
+			card.set_meta("flip", false)
 		end_label.text = "You All Lose"
 		end_label.add_theme_color_override("font_color", Color.LIGHT_CORAL)
 	end_label.show()
@@ -161,6 +168,11 @@ func end_game(win):
 	timer.stop()
 	game.get_node("UI").get_node("Menu").show()
 	if is_multiplayer_authority():
+		data.hand = game.get_meta("cards_amount")
+		data.play = cards_played
+		data.time = round(Time.get_ticks_msec()/1000) - start_time
+		data.success = win
+		data.show()
 		queue_free()
 
 func card_exists(card_id):
@@ -249,14 +261,6 @@ func _process(_delta):
 	var mouse = viewport.get_mouse_position()
 	mouse = mouse.clamp(screen.position, screen.end) + camera.position
 	
-	#if drag:
-		#hover_card.set_meta("position", mouse + drag)
-		#
-		#for node in nodes.get_children():
-			#if node.get_node("Collision").get_shape().get_rect().has_point(node.to_local(mouse)):
-				#hover_card.set_meta("target", node)
-		#
-	#else:
 	if local_player:
 		var card_nodes = local_player.get_meta("cards")
 		hover_card = null
@@ -266,3 +270,6 @@ func _process(_delta):
 		
 		for card in card_nodes:
 			card.set_meta("hover", card == hover_card)
+
+func _play_cards_pressed():
+	play_selected_cards()

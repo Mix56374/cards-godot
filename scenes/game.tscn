@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnhgv62itjbsf"]
+[gd_scene load_steps=13 format=3 uid="uid://cnhgv62itjbsf"]
 
 [ext_resource type="Script" uid="uid://bcpxuaif15wdo" path="res://scripts/toast.gd" id="1_iywne"]
 [ext_resource type="Script" uid="uid://cc7rnccnl2ps0" path="res://scripts/menu.gd" id="1_lbhrr"]
 [ext_resource type="Theme" uid="uid://crx8tm52vfc7p" path="res://themes/text.tres" id="2_iywne"]
 [ext_resource type="Texture2D" uid="uid://cc0c6igotgn1a" path="res://images/copy.svg" id="3_p57ef"]
+[ext_resource type="Script" uid="uid://o4h40ox0iaai" path="res://scenes/data.gd" id="4_iywne"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lbhrr"]
 properties/0/path = NodePath(".:metadata/players")
@@ -37,12 +38,44 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="SystemFont" id="SystemFont_p57ef"]
+
+[sub_resource type="FontVariation" id="FontVariation_u5sy4"]
+base_font = SubResource("SystemFont_p57ef")
+variation_face_index = 1
+variation_embolden = 0.79
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_p57ef"]
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 5.0
+content_margin_bottom = 0.0
+color = Color(0.5, 0.5, 0.5, 1)
+grow_begin = 0.0
+grow_end = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -215,9 +248,80 @@ text = "Start"
 wait_time = 0.05
 ignore_time_scale = true
 
+[node name="Data" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -416.0
+offset_top = -131.0
+offset_right = -23.0
+offset_bottom = 131.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iywne")
+script = ExtResource("4_iywne")
+
+[node name="Container" type="VBoxContainer" parent="UI/Data"]
+layout_mode = 2
+
+[node name="Title" type="PanelContainer" parent="UI/Data/Container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Data/Container/Title"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+theme_override_fonts/font = SubResource("FontVariation_u5sy4")
+theme_override_font_sizes/font_size = 42
+text = "Round Data"
+horizontal_alignment = 1
+
+[node name="CardsHand" type="Label" parent="UI/Data/Container"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Cards Per Hand:"
+horizontal_alignment = 1
+
+[node name="SeparatorA" type="HSeparator" parent="UI/Data/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_p57ef")
+
+[node name="CardsPlay" type="Label" parent="UI/Data/Container"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Cards Played:"
+horizontal_alignment = 1
+
+[node name="SeparatorB" type="HSeparator" parent="UI/Data/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_p57ef")
+
+[node name="TimePlay" type="Label" parent="UI/Data/Container"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Time Played:"
+horizontal_alignment = 1
+
+[node name="SeparatorC" type="HSeparator" parent="UI/Data/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_p57ef")
+
+[node name="Success" type="Label" parent="UI/Data/Container"]
+layout_mode = 2
+theme = ExtResource("2_iywne")
+text = "Successful Game:"
+horizontal_alignment = 1
+
 [node name="Toast" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
+z_index = 54
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -253,7 +357,7 @@ offset_top = -28.0
 offset_right = 86.0
 offset_bottom = -5.0
 grow_vertical = 0
-text = "Build 1.0.2a"
+text = "Build 1.0.3a"
 vertical_alignment = 2
 
 [node name="Username" type="Label" parent="UI"]

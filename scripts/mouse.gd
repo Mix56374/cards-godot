@@ -152,7 +152,7 @@ func end_game(win):
 	if is_multiplayer_authority():
 		data.hand = game.get_meta("cards_amount")
 		data.play = cards_played
-		data.time = int(Time.get_unix_time_from_system()) - start_time
+		data.time = max(int(Time.get_unix_time_from_system()) - start_time, 1)
 		data.success = win
 	
 	if win:

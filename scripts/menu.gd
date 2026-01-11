@@ -8,6 +8,7 @@ var base_world = preload("res://scenes/world.tscn")
 var base_player = preload("res://scenes/player_menu.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var toast = %Toast
+@onready var build = %Build
 @onready var username = %Username
 @onready var data = %Data
 @onready var timer = $Timer
@@ -54,6 +55,8 @@ func find_player(id):
 	return null
 
 func _ready():
+	build.text += "a" if game.get_meta("can_host") else "b"
+	
 	peer = NodeTunnelPeer.new()
 	multiplayer.multiplayer_peer = peer
 	multiplayer.server_relay = true

@@ -72,7 +72,7 @@ func get_player(id):
 func play_card(card_id, id):
 	if is_multiplayer_authority():
 		if cards_played <= 0:
-			start_time = round(Time.get_ticks_msec()/1000)
+			start_time = int(Time.get_unix_time_from_system())
 		cards_played += 1
 	
 	var player = get_player(id)
@@ -150,7 +150,10 @@ func is_losing():
 func end_game(win):
 	pass
 	if is_multiplayer_authority():
-		print("Show round data")
+		data.hand = game.get_meta("cards_amount")
+		data.play = cards_played
+		data.time = int(Time.get_unix_time_from_system()) - start_time
+		data.success = win
 	
 	if win:
 		end_label.text = "You All Win!"
@@ -168,10 +171,6 @@ func end_game(win):
 	timer.stop()
 	game.get_node("UI").get_node("Menu").show()
 	if is_multiplayer_authority():
-		data.hand = game.get_meta("cards_amount")
-		data.play = cards_played
-		data.time = round(Time.get_ticks_msec()/1000) - start_time
-		data.success = win
 		data.show()
 		queue_free()
 

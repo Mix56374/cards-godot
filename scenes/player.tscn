@@ -3,7 +3,7 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u8vuu"]
 properties/0/path = NodePath(".:metadata/id")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 
 [node name="Player" type="Node2D"]
 metadata/cards = []

@@ -9,7 +9,6 @@ var local_player
 var start_time = 0
 var cards_played = 0
 
-@onready var mult_spawn = $MultiplayerSpawner
 @onready var end_label = $EndLabel
 @onready var timer = $Timer
 @onready var fast_timer = $FastTimer
@@ -167,16 +166,13 @@ func end_game(win):
 	end_label.show()
 	
 	timer.start()
-	for i in range(6):
+	for i in range(7):
 		await timer.timeout
-	if is_multiplayer_authority():
-		mult_spawn.queue_free()
-	await timer.timeout
 	timer.stop()
 	game.get_node("UI").get_node("Menu").show()
 	if is_multiplayer_authority():
 		data.show()
-	queue_free()
+		queue_free()
 
 func card_exists(card_id):
 	for card in get_tree().get_nodes_in_group("Cards"):

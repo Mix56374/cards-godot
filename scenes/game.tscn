@@ -22,6 +22,9 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:metadata/cards_amount")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath("UI/Menu:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
 content_margin_left = 14.0
@@ -87,6 +90,10 @@ metadata/cards_amount = 4
 metadata/lobby_id = ""
 metadata/id = 0
 metadata/can_host = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dbe25rm777nk7")
+spawn_path = NodePath("..")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 delta_interval = 0.5
@@ -352,7 +359,7 @@ offset_top = -28.0
 offset_right = 86.0
 offset_bottom = -5.0
 grow_vertical = 0
-text = "Build 1.0.7"
+text = "Build 1.0.8"
 vertical_alignment = 2
 
 [node name="Username" type="Label" parent="UI"]

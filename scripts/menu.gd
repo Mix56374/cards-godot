@@ -204,10 +204,15 @@ func _lobby_start_pressed():
 	if is_multiplayer_authority():
 		var players = game.get_meta("players").size()
 		if players >= 2 and players <= 6:
-			hide()
 			data.hide()
-			var world = base_world.instantiate()
-			game.add_child(world, true)
+			spawn_world.rpc()
 			toast.new("Game started", 1)
 		else:
 			toast.new("You need 2-6 players", 2)
+
+@rpc("authority", "call_local", "reliable")
+func spawn_world():
+	print(game.get_meta("id"), " | spawn")
+	var world = base_world.instantiate()
+	game.add_child(world, true)
+	hide()

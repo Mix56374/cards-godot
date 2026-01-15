@@ -95,7 +95,7 @@ func play_card(card_id, id):
 	player_cards.erase(card)
 	hand_repos(player)
 
-@rpc("any_peer", "call_local", "reliable")
+#@rpc("any_peer", "call_local", "reliable")
 func select_card(card_id, select):
 	var card = get_card(card_id)
 	card.set_meta("selected", select)
@@ -104,8 +104,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_pressed() and hover_card:
-				select_card.rpc(hover_card.get_meta("card_id"), not hover_card.get_meta("selected"))
-				
+				#select_card.rpc(hover_card.get_meta("card_id"), not hover_card.get_meta("selected"))
+				select_card(hover_card.get_meta("card_id"), not hover_card.get_meta("selected"))
 				var selected_cards = local_player.get_meta("selected_cards")
 				if hover_card.get_meta("selected"):
 					selected_cards.append(hover_card)

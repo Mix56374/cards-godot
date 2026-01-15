@@ -116,29 +116,30 @@ func _unhandled_input(event):
 		play_selected_cards()
 
 func play_selected_cards():
-	var selected_cards = local_player.get_meta("selected_cards")
-		
-	if selected_cards.size() > 0:
-		local_player.set_meta("selected_cards", [])
-		selected_cards.sort_custom(sort_cards)
-		
-		interact_local_cards.rpc(false)
-		
-		timer.start()
-		for card in selected_cards:
-			play_card.rpc(card.get_meta("card_id"), local_player.get_meta("id"))
+	if !is_losing():
+		var selected_cards = local_player.get_meta("selected_cards")
+			
+		if selected_cards.size() > 0:
+			local_player.set_meta("selected_cards", [])
+			selected_cards.sort_custom(sort_cards)
+			
+			interact_local_cards.rpc(false)
+			
+			timer.start()
+			for card in selected_cards:
+				play_card.rpc(card.get_meta("card_id"), local_player.get_meta("id"))
+				if is_losing():
+					break
+				await timer.timeout
+			timer.stop()
+			
 			if is_losing():
-				break
-			await timer.timeout
-		timer.stop()
-		
-		if is_losing():
-			end_game.rpc(false)
-		else:
-			if get_tree().get_node_count_in_group("Idle") > 0:
-				interact_local_cards.rpc(true)
+				end_game.rpc(false)
 			else:
-				end_game.rpc(true)
+				if get_tree().get_node_count_in_group("Idle") > 0:
+					interact_local_cards.rpc(true)
+				else:
+					end_game.rpc(true)
 
 func is_losing():
 	for card in get_tree().get_nodes_in_group("Idle"):
